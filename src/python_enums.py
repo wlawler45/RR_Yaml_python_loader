@@ -96,20 +96,54 @@ def string_to_enum_ClockTypeCode(enumval):
 
 def string_to_enum_EventLogLevel(enumval):
 	if(enumval=="undefined"): return 0
-	if(enumval=="debug"): return 1
-	if(enumval=="info"): return 2
-	if(enumval=="warning"): return 3
-	if(enumval=="recoverable_error"): return 4
-	if(enumval=="safety_violation_error"): return 5
-	if(enumval=="fatal_error"): return 6
-	if(enumval=="emergency_error"): return 7
-	if(enumval=="catastrophic_error"): return 8
+	if(enumval=="trace"): return 1
+	if(enumval=="debug"): return 2
+	if(enumval=="info"): return 3
+	if(enumval=="warning"): return 4
+	if(enumval=="error"): return 5
+	if(enumval=="safety_violation_error"): return 6
+	if(enumval=="fatal_error"): return 7
+	if(enumval=="emergency_error"): return 8
+	if(enumval=="catastrophic_error"): return 9
+
+def string_to_enum_MeshType(enumval):
+	if(enumval=="mesh"): return 0
+	if(enumval=="convex_mesh"): return 1
+	if(enumval=="sdf_mesh"): return 2
 
 def string_to_enum_JoystickCapabilities(enumval):
 	if(enumval=="none"): return 0
 	if(enumval=="rumble"): return 1
 	if(enumval=="force_feedback"): return 2
 	if(enumval=="standard_gamepad"): return 4
+
+def string_to_enum_GamepadButtons(enumval):
+	if(enumval=="button_A"): return 0
+	if(enumval=="button_B"): return 1
+	if(enumval=="button_X"): return 2
+	if(enumval=="button_Y"): return 3
+	if(enumval=="button_back"): return 4
+	if(enumval=="button_guide"): return 5
+	if(enumval=="button_start"): return 6
+	if(enumval=="button_left_stick"): return 7
+	if(enumval=="button_right_stick"): return 8
+	if(enumval=="button_left_shoulder"): return 9
+	if(enumval=="button_right_shoulder"): return 10
+	if(enumval=="button_dpad_up"): return 11
+	if(enumval=="button_dpad_down"): return 12
+	if(enumval=="button_dpad_left"): return 13
+	if(enumval=="button_dpad_right"): return 14
+
+def string_to_enum_JoystickHatState(enumval):
+	if(enumval=="hat_centered"): return 0
+	if(enumval=="hat_up"): return 1
+	if(enumval=="hat_right"): return 2
+	if(enumval=="hat_down"): return 4
+	if(enumval=="hat_left"): return 8
+	if(enumval=="hat_rightup"): return 3
+	if(enumval=="hat_rightdown"): return 6
+	if(enumval=="hat_leftup"): return 9
+	if(enumval=="hat_leftdown"): return 12
 
 def string_to_enum_ImageEncoding(enumval):
 	if(enumval=="unknown"): return 0
@@ -243,7 +277,7 @@ def string_to_enum_PlannerStatusCode(enumval):
 	if(enumval=="running"): return 2
 	if(enumval=="success"): return 3
 
-def string_to_enum_RobotType(enumval):
+def string_to_enum_RobotTypeCode(enumval):
 	if(enumval=="unknown"): return 0
 	if(enumval=="serial"): return 1
 	if(enumval=="dual_arm"): return 2
@@ -316,6 +350,23 @@ def string_to_enum_RobotStateFlags(enumval):
 	if(enumval=="valid_velocity_command"): return 33554432
 	if(enumval=="trajectory_running"): return 67108864
 
+def string_to_enum_ToolType(enumval):
+	if(enumval=="unknown"): return 0
+	if(enumval=="basic_gripper"): return 1
+	if(enumval=="basic_continuous_gripper"): return 2
+	if(enumval=="vaccum_gripper"): return 3
+	if(enumval=="soft_gripper"): return 4
+	if(enumval=="welder"): return 5
+	if(enumval=="hand"): return 6
+	if(enumval=="palletizer"): return 7
+	if(enumval=="other"): return 8
+
+def string_to_enum_ToolStatus(enumval):
+	if(enumval=="unknown"): return 0
+	if(enumval=="open"): return 1
+	if(enumval=="closed"): return 2
+	if(enumval=="between"): return 3
+
 def string_to_enum_InterpolationMode(enumval):
 	if(enumval=="default"): return 0
 	if(enumval=="joint"): return 1
@@ -366,6 +417,7 @@ def string_to_enum_SensorTypeCode(enumval):
 	if(enumval=="light_intensity"): return 36
 	if(enumval=="object_color"): return 37
 	if(enumval=="altitude"): return 38
+	if(enumval=="other"): return 39
 
 def string_to_enum_ServoTypeCode(enumval):
 	if(enumval=="unknown"): return 0

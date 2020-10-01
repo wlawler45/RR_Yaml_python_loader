@@ -3,6 +3,7 @@ import yaml
 import numpy
 import python_enums
 import YAMLconverter__com_robotraconteur_sensor
+import YAMLconverter__com_robotraconteur_device
 def yaml_loader_com_robotraconteur_gps_GpsState(RRN,data):
 	output=RRN.NewStructure("com.robotraconteur.gps.GpsState")
 	if(data.get('altitude')!=None):

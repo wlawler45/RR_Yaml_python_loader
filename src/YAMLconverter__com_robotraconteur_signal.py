@@ -6,6 +6,7 @@ import YAMLconverter__com_robotraconteur_identifier
 import YAMLconverter__com_robotraconteur_datatype
 import YAMLconverter__com_robotraconteur_device
 import YAMLconverter__com_robotraconteur_units
+import YAMLconverter__com_robotraconteur_device_isoch
 def yaml_loader_com_robotraconteur_signal_SignalInfo(RRN,data):
 	output=RRN.NewStructure("com.robotraconteur.signal.SignalInfo")
 	if(data.get('signal_identifier')!=None):
@@ -29,12 +30,18 @@ def yaml_loader_com_robotraconteur_signal_SignalInfo(RRN,data):
 		output.user_description=data['user_description']
 	else:
 		print("No value found for user_description\n")
-	if(data.get('max_update_rate')!=None):
-		output.max_update_rate=data['max_update_rate']
+	return output
+
+def yaml_loader_com_robotraconteur_signal_SignalGroupInfo(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.signal.SignalGroupInfo")
+	if(data.get('signal_group_identifier')!=None):
+		output.signal_group_identifier = YAMLconverter__com_robotraconteur_identifier.yaml_loader_com_robotraconteur_identifier_Identifier(RRN,data['signal_group_identifier'])
+	if(data.get('description')!=None):
+		output.description=data['description']
 	else:
-		print("No value found for max_update_rate\n")
+		print("No value found for description\n")
 	return output
 
 #TODO: Fix the following structures or namedarrays: 
-# com.robotraconteur.signal.SignalInfo 
+# com.robotraconteur.signal.SignalGroupInfo 
 

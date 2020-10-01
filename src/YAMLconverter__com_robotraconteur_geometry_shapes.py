@@ -6,6 +6,7 @@ import YAMLconverter__com_robotraconteur_geometry
 import YAMLconverter__com_robotraconteur_identifier
 import YAMLconverter__com_robotraconteur_color
 import YAMLconverter__com_robotraconteur_resource
+import YAMLconverter__com_robotraconteur_image
 def yaml_loader_com_robotraconteur_geometry_shapes_MeshTriangle(RRN,data):
 	output_type=RRN.GetNamedArrayDType("com.robotraconteur.geometry.shapes.MeshTriangle")
 	output=numpy.zeros((1,),dtype=output_type)
@@ -62,6 +63,46 @@ def yaml_loader_com_robotraconteur_geometry_shapes_Cone(RRN,data):
 		print("No value found for radius\n")
 	return output
 
+def yaml_loader_com_robotraconteur_geometry_shapes_Capsule(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.Capsule")
+	if(data.get('height')!=None):
+		output.height=data['height']
+	else:
+		print("No value found for height\n")
+	if(data.get('radius')!=None):
+		output.radius=data['radius']
+	else:
+		print("No value found for radius\n")
+	return output
+
+def yaml_loader_com_robotraconteur_geometry_shapes_Plane(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.Plane")
+	if(data.get('a')!=None):
+		output.a=data['a']
+	else:
+		print("No value found for a\n")
+	if(data.get('b')!=None):
+		output.b=data['b']
+	else:
+		print("No value found for b\n")
+	if(data.get('c')!=None):
+		output.c=data['c']
+	else:
+		print("No value found for c\n")
+	if(data.get('d')!=None):
+		output.d=data['d']
+	else:
+		print("No value found for d\n")
+	return output
+
+def yaml_loader_com_robotraconteur_geometry_shapes_MeshTexture(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.MeshTexture")
+	if(data.get('image')!=None):
+		output.image = YAMLconverter__com_robotraconteur_image.yaml_loader_com_robotraconteur_image_CompressedImage(RRN,data['image'])
+	if(data.get('uvs')!=None):
+		output.uvs = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Vector2(RRN,data['uvs'])
+	return output
+
 def yaml_loader_com_robotraconteur_geometry_shapes_Mesh(RRN,data):
 	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.Mesh")
 	if(data.get('triangles')!=None):
@@ -76,12 +117,44 @@ def yaml_loader_com_robotraconteur_geometry_shapes_Mesh(RRN,data):
 		for i in range(len(data['vertices'])):
 			myarray[i] = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Point(RRN,data['vertices'][i])
 		output.vertices=myarray
-	return output
+	if(data.get('normals')!=None):
+		dtype=RRN.GetNamedArrayDType("com.robotraconteur.geometry.Vector3")
+		myarray=numpy.zeros((len(data['normals'],),dtype=dtype)
+		for i in range(len(data['normals'])):
+			myarray[i] = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Vector3(RRN,data['normals'][i])
+		output.normals=myarray
+	if(data.get('colors')!=None):
+		dtype=RRN.GetNamedArrayDType("com.robotraconteur.color.ColorRGB")
+		myarray=numpy.zeros((len(data['colors'],),dtype=dtype)
+		for i in range(len(data['colors'])):
+			myarray[i] = YAMLconverter__com_robotraconteur_color.yaml_loader_com_robotraconteur_color_ColorRGB(RRN,data['colors'][i])
+		output.colors=myarray
+	if(data.get('textures')!=None):
+		mylist=[]
+		for i in range(len(data['textures'])):
+			mylist.append(yaml_loader_com_robotraconteur_geometry_shapes_MeshTexture(RRN,data['textures'][i]))
+		output.textures=mylist
+	if(data.get('mesh_type')!=None):
+		output.mesh_type=python_enums.string_to_enum_MeshType	return output
 
-def yaml_loader_com_robotraconteur_geometry_shapes_MeshFromResource(RRN,data):
-	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.MeshFromResource")
-	if(data.get('mesh_resource')!=None):
-		output.mesh_resource = YAMLconverter__com_robotraconteur_resource.yaml_loader_com_robotraconteur_resource_ResourceIdentifier(RRN,data['mesh_resource'])
+def yaml_loader_com_robotraconteur_geometry_shapes_Material(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.geometry.shapes.Material")
+	if(data.get('albedo')!=None):
+		output.albedo = YAMLconverter__com_robotraconteur_color.yaml_loader_com_robotraconteur_color_ColorRGB(RRN,data['albedo'])
+	if(data.get('alpha')!=None):
+		output.alpha=data['alpha']
+	else:
+		print("No value found for alpha\n")
+	if(data.get('reflectivity')!=None):
+		output.reflectivity = YAMLconverter__com_robotraconteur_color.yaml_loader_com_robotraconteur_color_ColorRGB(RRN,data['reflectivity'])
+	if(data.get('roughness')!=None):
+		output.roughness=data['roughness']
+	else:
+		print("No value found for roughness\n")
+	if(data.get('emissivity')!=None):
+		output.emissivity=data['emissivity']
+	else:
+		print("No value found for emissivity\n")
 	return output
 
 def yaml_loader_com_robotraconteur_geometry_shapes_ShapeObject(RRN,data):
@@ -93,11 +166,11 @@ def yaml_loader_com_robotraconteur_geometry_shapes_ShapeObject(RRN,data):
 		for i in range(len(data['shape_poses'])):
 			mylist.append(YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Pose(RRN,data['shape_poses'][i]))
 		output.shape_poses=mylist
-	if(data.get('shape_colors')!=None):
+	if(data.get('shape_materials')!=None):
 		mylist=[]
-		for i in range(len(data['shape_colors'])):
-			mylist.append(YAMLconverter__com_robotraconteur_color.yaml_loader_com_robotraconteur_color_ColorRGBA(RRN,data['shape_colors'][i]))
-		output.shape_colors=mylist
+		for i in range(len(data['shape_materials'])):
+			mylist.append(yaml_loader_com_robotraconteur_geometry_shapes_Material(RRN,data['shape_materials'][i]))
+		output.shape_materials=mylist
 	if(data.get('inertia')!=None):
 		output.inertia = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_SpatialInertia(RRN,data['inertia'])
 	return output

@@ -4,6 +4,7 @@ import numpy
 import python_enums
 import YAMLconverter__com_robotraconteur_sensor
 import YAMLconverter__com_robotraconteur_geometry
+import YAMLconverter__com_robotraconteur_device
 def yaml_loader_com_robotraconteur_imu_ImuState(RRN,data):
 	output=RRN.NewStructure("com.robotraconteur.imu.ImuState")
 	if(data.get('angular_velocity')!=None):

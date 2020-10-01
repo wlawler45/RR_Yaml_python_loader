@@ -26,10 +26,26 @@ def yaml_loader_com_robotraconteur_robotics_joints_JointLimits(RRN,data):
 		output.acceleration=data['acceleration']
 	else:
 		print("No value found for acceleration\n")
+	if(data.get('jerk')!=None):
+		output.jerk=data['jerk']
+	else:
+		print("No value found for jerk\n")
 	if(data.get('effort')!=None):
 		output.effort=data['effort']
 	else:
 		print("No value found for effort\n")
+	if(data.get('reduced_velocity')!=None):
+		output.reduced_velocity=data['reduced_velocity']
+	else:
+		print("No value found for reduced_velocity\n")
+	if(data.get('reduced_acceleration')!=None):
+		output.reduced_acceleration=data['reduced_acceleration']
+	else:
+		print("No value found for reduced_acceleration\n")
+	if(data.get('reduced_effort')!=None):
+		output.reduced_effort=data['reduced_effort']
+	else:
+		print("No value found for reduced_effort\n")
 	return output
 
 def yaml_loader_com_robotraconteur_robotics_joints_JointInfo(RRN,data):

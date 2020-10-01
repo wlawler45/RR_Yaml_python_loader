@@ -17,10 +17,6 @@ def yaml_loader_com_robotraconteur_pointcloud_sensor_PointCloudSensorInfo(RRN,da
 		output.range_max = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Point(RRN,data['range_max'])
 	if(data.get('resolution')!=None):
 		output.resolution = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_Vector3(RRN,data['resolution'])
-	if(data.get('update_rate')!=None):
-		output.update_rate=data['update_rate']
-	else:
-		print("No value found for update_rate\n")
 	return output
 
 def yaml_loader_com_robotraconteur_pointcloud_sensor_PointCloudSensorData(RRN,data):

@@ -14,6 +14,7 @@ import YAMLconverter__com_robotraconteur_robotics_trajectory
 import YAMLconverter__com_robotraconteur_identifier
 import YAMLconverter__com_robotraconteur_action
 import YAMLconverter__com_robotraconteur_eventlog
+import YAMLconverter__com_robotraconteur_device_isoch
 def yaml_loader_com_robotraconteur_robotics_robot_RobotKinChainInfo(RRN,data):
 	output=RRN.NewStructure("com.robotraconteur.robotics.robot.RobotKinChainInfo")
 	if(data.get('kin_chain_identifier')!=None):
@@ -57,6 +58,14 @@ def yaml_loader_com_robotraconteur_robotics_robot_RobotKinChainInfo(RRN,data):
 		output.tcp_max_velocity = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_SpatialVelocity(RRN,data['tcp_max_velocity'])
 	if(data.get('tcp_max_acceleration')!=None):
 		output.tcp_max_acceleration = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_SpatialAcceleration(RRN,data['tcp_max_acceleration'])
+	if(data.get('tcp_reduced_max_velocity')!=None):
+		output.tcp_reduced_max_velocity = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_SpatialVelocity(RRN,data['tcp_reduced_max_velocity'])
+	if(data.get('tcp_reduced_max_acceleration')!=None):
+		output.tcp_reduced_max_acceleration = YAMLconverter__com_robotraconteur_geometry.yaml_loader_com_robotraconteur_geometry_SpatialAcceleration(RRN,data['tcp_reduced_max_acceleration'])
+	if(data.get('description')!=None):
+		output.description=data['description']
+	else:
+		print("No value found for description\n")
 	return output
 
 def yaml_loader_com_robotraconteur_robotics_robot_RobotInfo(RRN,data):
@@ -64,7 +73,7 @@ def yaml_loader_com_robotraconteur_robotics_robot_RobotInfo(RRN,data):
 	if(data.get('device_info')!=None):
 		output.device_info = YAMLconverter__com_robotraconteur_device.yaml_loader_com_robotraconteur_device_DeviceInfo(RRN,data['device_info'])
 	if(data.get('robot_type')!=None):
-		output.robot_type=python_enums.string_to_enum_RobotType	if(data.get('joint_info')!=None):
+		output.robot_type=python_enums.string_to_enum_RobotTypeCode	if(data.get('joint_info')!=None):
 		mylist=[]
 		for i in range(len(data['joint_info'])):
 			mylist.append(YAMLconverter__com_robotraconteur_robotics_joints.yaml_loader_com_robotraconteur_robotics_joints_JointInfo(RRN,data['joint_info'][i]))
@@ -92,6 +101,11 @@ def yaml_loader_com_robotraconteur_robotics_robot_RobotInfo(RRN,data):
 		output.config_seqno=data['config_seqno']
 	else:
 		print("No value found for config_seqno\n")
+	if(data.get('trajectory_interpolation_modes')!=None):
+		mylist=[]
+		for i in range(len(data['trajectory_interpolation_modes'])):
+			mylist.append(YAMLconverter__com_robotraconteur_robotics_trajectory.yaml_loader_com_robotraconteur_robotics_trajectory_InterpolationMode(RRN,data['trajectory_interpolation_modes'][i]))
+		output.trajectory_interpolation_modes=mylist
 	return output
 
 def yaml_loader_com_robotraconteur_robotics_robot_RobotState(RRN,data):

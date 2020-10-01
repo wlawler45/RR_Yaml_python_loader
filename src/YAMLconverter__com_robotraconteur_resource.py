@@ -24,6 +24,10 @@ def yaml_loader_com_robotraconteur_resource_BucketInfo(RRN,data):
 		for i in range(len(data['keys'])):
 			mylist.append(data['keys'][i])
 		output.keys=mylist
+	if(data.get('description')!=None):
+		output.description=data['description']
+	else:
+		print("No value found for description\n")
 	return output
 
 def yaml_loader_com_robotraconteur_resource_ResourceInfo(RRN,data):

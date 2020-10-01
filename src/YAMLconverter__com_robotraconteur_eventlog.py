@@ -26,6 +26,10 @@ def yaml_loader_com_robotraconteur_eventlog_EventLogMessageHeader(RRN,data):
 		output.source_component=data['source_component']
 	else:
 		print("No value found for source_component\n")
+	if(data.get('source_object')!=None):
+		output.source_object=data['source_object']
+	else:
+		print("No value found for source_object\n")
 	if(data.get('message_number')!=None):
 		output.message_number=data['message_number']
 	else:
@@ -44,6 +48,20 @@ def yaml_loader_com_robotraconteur_eventlog_EventLogMessage(RRN,data):
 		output.message=data['message']
 	else:
 		print("No value found for message\n")
+	return output
+
+def yaml_loader_com_robotraconteur_eventlog_EventLogInfo(RRN,data):
+	output=RRN.NewStructure("com.robotraconteur.eventlog.EventLogInfo")
+	if(data.get('logged_device')!=None):
+		output.logged_device = YAMLconverter__com_robotraconteur_identifier.yaml_loader_com_robotraconteur_identifier_Identifier(RRN,data['logged_device'])
+	if(data.get('min_message_number')!=None):
+		output.min_message_number=data['min_message_number']
+	else:
+		print("No value found for min_message_number\n")
+	if(data.get('max_message_number')!=None):
+		output.max_message_number=data['max_message_number']
+	else:
+		print("No value found for max_message_number\n")
 	return output
 
 
